@@ -1,0 +1,53 @@
+NSI 2.0 Update Instructions
+Authored by Colin Lindeman, GIS Developer Niyam IT
+FEB 9, 2020
+
+Skip to step 7 if you already have the NSI2.0 CSV files generated.
+
+1. Obtain NSI 2.0 shapefiles or gpkg
+
+2a Using Arcmap, merge all shapefiles into one shapefile or featureclass in a fgdb, for each state/territory.
+
+2b Using Arcmap, export the main.nsi table to a csv.
+
+3a Using Arcmap, selecting all records in the merged shapefile or featureclass from the previous step and export to a text file (CSV). You can delete the NSI 2.0 merged shapefile or featureclass at this point.
+
+4. Open the Python script with a text editor or Python Editor and modify the following:
+	a) inputCsvPath = the file path to the csv you created in the previous step, i.e. 'C:/temp/15/HI15.txt'
+	b) database = the sql server database name, ie 'HI' for Hawaii (watch out for 'AS' and sql reserved words, untested as of 2020-2-9)
+	c) outputCsvPath = the file path where you want the output csv fiel to be, i.e. 'C:/temp/NSI2_HI_20200209.csv'
+
+5. Run the python script with a Python editor, i.e. IDLE so you can watch for any errors.
+
+6. Once successfully run you can review the output csv file using excel or importing to arcmap as xy data.
+
+7. Use SQL SERVER IMPORT AND EXPORT DATA tool to import the csv to the [XX].[dbo].[tsNsiGbs] table, where XX is the State or Territory database, i.e. 'HI' for Hawaii.
+
+	a) screenshots of import, include truncate table 
+	
+
+
+
+APPENDIX
+This query can be used in ArcMap on [CA].[dbo].[hzCounty] and the NSI2.0 data to select the ocean facing counties:
+"cbfips" LIKE '06001%' OR
+"cbfips" LIKE '06013%' OR
+"cbfips" LIKE '06015%' OR
+"cbfips" LIKE '06023%' OR
+"cbfips" LIKE '06037%' OR
+"cbfips" LIKE '06041%' OR
+"cbfips" LIKE '06045%' OR
+"cbfips" LIKE '06053%' OR
+"cbfips" LIKE '06055%' OR
+"cbfips" LIKE '06059%' OR
+"cbfips" LIKE '06067%' OR
+"cbfips" LIKE '06073%' OR
+"cbfips" LIKE '06075%' OR
+"cbfips" LIKE '06079%' OR
+"cbfips" LIKE '06081%' OR
+"cbfips" LIKE '06083%' OR
+"cbfips" LIKE '06085%' OR
+"cbfips" LIKE '06087%' OR
+"cbfips" LIKE '06095%' OR
+"cbfips" LIKE '06097%' OR
+"cbfips" LIKE '06111%'
