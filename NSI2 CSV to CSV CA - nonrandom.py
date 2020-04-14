@@ -27,7 +27,8 @@ xlsx_config = r"E:\Projects\NSI_20200200\data\NSI2.0_to_tsNsiGbs_eqSBTIDControl.
 ##xlsx_config_sheet = "NSI2.0_HI_tsNsiGb"'
 
 #For CA
-inputCsvPath = r'E:\Projects\NSI_20200200\data\06\CA06_coastal.txt'
+#inputCsvPath = r'E:\Projects\NSI_20200200\data\06\CA06_coastal.txt'
+inputCsvPath = r'E:\Projects\NSI_20200200\data\06\CA06.txt'
 database = 'CA'
 xlsx_config_sheet = "NSI2.0_CA_tsNsiGbs"
 
@@ -116,7 +117,7 @@ for column in columnList:
 df_Csv = df_Csv.rename(columns=columnDict)
 
 #OUTPUTS
-outputCsvPath = r'E:\Projects\NSI_20200200\data\CA06Coastaloutput20200410.csv'
+outputCsvPath = r'E:\Projects\NSI_20200200\data\CA06_20200413.csv'
 
 
 
@@ -415,7 +416,7 @@ def YearBuiltEqDesignLevelFunction(state, year):
         code = 0
     return code
 # Add a new field and use the def above to calculate it...
-df_Csv['eqdesignlevelid'] = df_Csv.apply(lambda x: YearBuiltEqDesignLevelFunction(state, x['yrbuilt']), axis=1)
+df_Csv['eqdesignlevelid'] = df_Csv.apply(lambda x: YearBuiltEqDesignLevelFunction(state, x['medyrblt']), axis=1)
 
 # Add a new field and calculate it
 query_eqClDesignLevel = "SELECT \
