@@ -1,0 +1,15 @@
+United States Army Core of Engineers (USACE) National Structure Inventory (NSI) 2.0 data to populate the Hazus Tsunami database (tsNsiGbs)
+
+Specific Occupancy field (this might be the CoreLogic data)
+Hazus Seismic Design Levels (DesignLevel|ID|Desc) fields
+bldgtype field (source may be corelogic)
+
+NSI 1.0 (What Hazus is using now)
+NSI "1.5" (replace proprietary attributes of corelogic with hazus based assumptions)
+NSI 2.0 (NiyamIT script to incoporate/create)
+
+Hazus General Building Stock
+CoreLogic Data (building level data|proprietary attributes)
+Zillow dataset (not used)
+Microsoft/Bing dataset (not used)
+hifld (not used but might be)
