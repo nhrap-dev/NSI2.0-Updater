@@ -1,0 +1,22 @@
+This query can be used in ArcMap on [CA].[dbo].[hzCounty] and the NSI2.0 data to select the ocean facing counties:
+"cbfips" LIKE '06001%' OR
+"cbfips" LIKE '06013%' OR
+"cbfips" LIKE '06015%' OR
+"cbfips" LIKE '06023%' OR
+"cbfips" LIKE '06037%' OR
+"cbfips" LIKE '06041%' OR
+"cbfips" LIKE '06045%' OR
+"cbfips" LIKE '06053%' OR
+"cbfips" LIKE '06055%' OR
+"cbfips" LIKE '06059%' OR
+"cbfips" LIKE '06067%' OR
+"cbfips" LIKE '06073%' OR
+"cbfips" LIKE '06075%' OR
+"cbfips" LIKE '06079%' OR
+"cbfips" LIKE '06081%' OR
+"cbfips" LIKE '06083%' OR
+"cbfips" LIKE '06085%' OR
+"cbfips" LIKE '06087%' OR
+"cbfips" LIKE '06095%' OR
+"cbfips" LIKE '06097%' OR
+"cbfips" LIKE '06111%'
