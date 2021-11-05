@@ -1,32 +1,32 @@
-# NSI2.0-Updater
+# __NSI2.0-Updater__
 A python tool to update the Tsunami National Structure Inventory General Building Stock (tsNsiGbs state database table) for Hazus with data from NSI 2.0. This tool requires manual editing of the NSI 2.0 source data for input into the script as well as using the SQL Server Management Studio to truncate and load the script output data into the database.
 
-## Requirements
+------
+
+## __Requirements__
   - Python 3.7 or greater with pyodbc and Pandas
   - Hazus 4.2.3 (requires ArcMap 10.6.1) or greater
   - SQL Server Management Studio (SSMS) installed
 
-## To Use
+-----
+
+## __To Use__
 
 The NSI 2.0 data must be converted into a csv for use in the Python scripts. Once the script has run, the output can then be imported into the State Database using SSMS after removing the existing table rows (we don't want duplicated data).
 
-### STEP 1: Prepare NSI 2.0 data
+### __STEP 1: Prepare NSI 2.0 data__
 
 Skip to STEP 2 if you already have the NSI 2.0 csv files generated
 
-  1. Obtain NSI 2.0 shapefiles or gpkg
+  1. Obtain NSI 2.0 shapefiles/gpkg. This may be one or many files. You will need to combine them all into one file.
 
   2. Using ArcMap: 
 
-      1. merge all shapefiles into one shapefile or featureclass in a fgdb, for each state/territory.
+      1. If there are multiple shapefiles for the State: merge all shapefiles into one shapefile or featureclass in a fgdb, for each state/territory, then export the table to a csv; else export the table to csv
 
           ![FIXME screenshot](fixme)
 
-      2. export the main.nsi table to a csv.
-
-          ![FIXME screenshot](fixme)
-
-      3. select all records in the merged shapefile or featureclass from the previous step and export to a text file (CSV). You can delete the NSI 2.0 merged shapefile or featureclass at this point.
+      2. You can delete the NSI 2.0 merged shapefile or featureclass at this point
 
           ![FIXME screenshot](fixme)
 
@@ -44,31 +44,61 @@ Skip to STEP 2 if you already have the NSI 2.0 csv files generated
 
           ![FIXME screenshot](fixme)
 
-  4. Run the python script with a Python editor, i.e. IDLE so you can watch for any errors.
+  4. Run the python script with a Python editor, i.e. IDLE so you can watch for any errors
 
       ![FIXME screenshot](fixme)
 
-  5. Once successfully run you can review the output csv file using excel or importing to ArcMap as xy data.
+  5. Once successfully run you can review the output csv file using excel or importing to ArcMap as xy data
 
       ![FIXME screenshot](fixme)
 
-### STEP 2: Update State Database tsNsiGBS table
+### __STEP 2: Update State Database tsNsiGBS table__
 
   1. Using SQL Server Management Studio:
 
-      1. Truncate the [XX].[dbo].tsNsiGbs] table
+      1. Remove the existing rows in the [XX].[dbo].tsNsiGbs] table using the Truncate statement
+
+          FIXME sample sql statement
 
           ![FIXME screenshot](fixme)
       
-      2. SQL SERVER IMPORT AND EXPORT DATA tool to import the csv to the [XX].[dbo].[tsNsiGbs] table, where XX is the State or Territory database, i.e. 'HI' for Hawaii.
+      2. SQL SERVER IMPORT AND EXPORT DATA tool to import the csv to the [XX].[dbo].[tsNsiGbs] table, where XX is the State or Territory database, i.e. 'HI' for Hawaii
 
           ![FIXME screenshot](fixme)
 
-## Documentation
+-----
 
+## __Documentation__
+
+### __Inputs__
+
+#### __NSI__
+
+![NSI table](./images/RI_NSI_table.JPG)
+
+#### __tsSOccupSbtPct__
+
+NOTE: This table does not exist for all States so you may need to create it.
+
+![tsSOccupSbtPct table](./images/tsSOccupSbtPct_table.JPG)
+
+
+#### __clOccupancy__
+
+![clOccupancy table](./images/clOccupancy_table.JPG)
+
+#### __eqBldgTypeDisplayOrder | eqclBldgType__
+
+![eqclBldgType table](./images/eqclBldgType_table.JPG)
+
+#### __hzSqFtFactors__
+
+![hzSqFtFactors table](./images/hzSqftFactors_table.JPG)
+
+### __Other__
 For these databases only: AK, CA, HI, OR, WA, PR, VI, AS, GU, MP
 
-United States Army Core of Engineers (USACE) [National Structure Inventory](https://www.hec.usace.army.mil/confluence/nsidocs/nsi-documentation-49251650.html) (NSI) 2.0 data to populate the Hazus Tsunami database (tsNsiGbs). 
+United States Army Core of Engineers (USACE) [National Structure Inventory](https://www.hec.usace.army.mil/confluence/nsidocs/nsi-documentation-49251650.html) (NSI) 2.0 data to populate the Hazus Tsunami database table (tsNsiGbs). 
 
 | Data | Notes |
 | - | - |
@@ -86,7 +116,9 @@ United States Army Core of Engineers (USACE) [National Structure Inventory](http
 |Microsoft/Bing dataset | not used
 |HIFLD | not used but might be
 
-## Contact
+-----
+
+## __Contact__
 
 Issues can be reported through the repository on Github (https://github.com/nhrap-dev/NSI2.0-Updater/br)
 
