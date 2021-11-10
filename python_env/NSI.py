@@ -271,8 +271,7 @@ class NSI:
             
         # Create new field and normalize data in that field...
         df_Csv['occtype2'] = np.where(df_Csv.occtype.str.match('RES1-.*'), 'RES1', df_Csv.occtype) #normalize RES1-1NSB, etc to RES1
-        #df_Csv['occtype2'] = np.where(df_Csv.occtype2.str.match('(RES3[ABCDEF])I'), 'RES3', df_Csv.occtype) #drop trailing I from RES3A, etc
-        df_Csv['occtype2'].replace(r'(RES3[ABCDEF])I', r'\1', regex=True, inplace=True) #drop trailing I from RES3A, etc
+        df_Csv['occtype2'].replace(r'(RES3[ABCDEF])I', r'\1', regex=True, inplace=True) #drop trailing i from RES3X
 
         #Update tsSOccupSbtPctList; add number of rows to sample for each eqSBTID...
         for x in tsSOccupSbtPctList:    
@@ -313,7 +312,7 @@ class NSI:
                         smpCnt = int(y['smpCnt'])
                         #query on OccType and eqSBTID is null
                         SOccupID = OccType.rstrip()
-                        if eqSBTID =='MH  ':
+                        if eqSBTID == 'MH  ':
                             #Create a sample using the smpCnt
                             df_Sample = df_Csv.loc[(df_Csv.occtype2 == SOccupID) & (df_Csv.eqsbtid =='NULL')].sample(n=smpCnt, replace=False, weights='mhweightareasqft')
                         elif eqSBTID == 'W1  ':
@@ -373,12 +372,15 @@ class NSI:
         
     def SOccTypeIdFunction(self, OccType):
         '''Set the occupancy field to have match the values in sql
+
+        Notes:
             Sample Inputs: 
-                RES1-1SNB; COM9; RES3A; etc 
-                Need to pad with spaces on the right to match sql server table.
+                RES1-1SNB; COM9; RES3A; RES3AI; etc 
+            Need to pad with spaces on the right to match sql server table:
+                RES1, COM9 , RES3A
         '''
         foo = OccType.split('-')[0]
-        return foo.ljust(5,' ') #add trailing whitespace
+        return foo[0:5].ljust(5,' ') #add trailing whitespace
 
     def hzSqFtFactorsFunction(self, sqft, occupancy5):
         '''Update AreaSqFt field via lookup to CDMS hz.sqftfactors'''
@@ -395,25 +397,25 @@ class NSI:
         Hazus_model_data.flFoundationType
         Does this need to be dynamic? Could look up values from table, then check to see if input is in any values (ie "Craw" in "Crawl Space")
         '''
-        if Found_Type == 'Pile':
+        if Found_Type.lower() in ['pile']:
             #Pile
             code = 1
-        elif Found_Type == 'Pier':
+        elif Found_Type.lower() in ['pier']:
             #Pier
             code = 2
-        elif Found_Type == 'Soli':
+        elif Found_Type.lower() in ['soli', 'solidwall', 'solid wall']:
             #Solid Wall
             code = 3
-        elif Found_Type == 'Base':
+        elif Found_Type.lower() in ['base', 'basement']:
             #Basement/Garden
             code = 4
-        elif Found_Type == 'Craw':
+        elif Found_Type.lower() in ['craw', 'crawl', 'crawl space']:
             #Crawl Space
             code = 5
-        elif Found_Type == 'Fill':
+        elif Found_Type.lower() in ['fill']:
             #Fill
             code = 6
-        elif Found_Type == 'Slab':
+        elif Found_Type.lower() in ['slab', 'slab on grade']:
             #Slab on Grade
             code = 7
         else:
@@ -605,7 +607,7 @@ if __name__=="__main__":
                     inputDir='C:\workspace\RI_Ed\Input', 
                     outputDir='C:\workspace\RI_Ed\Output', 
                     NSIFileName='RI_NSI.txt',
-                    OutFileName='RI_NSI_20211103_1.csv')
+                    OutFileName='RI_NSI_20211109_1A.csv')
         print('Done.')
 
     endTime = time.time()
