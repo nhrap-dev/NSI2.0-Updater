@@ -1,5 +1,5 @@
-# __NSI2.0-Updater__
-A python tool to update the Tsunami National Structure Inventory General Building Stock (tsNsiGbs state database table) for Hazus with data from NSI 2.0. This tool requires manual editing of the NSI 2.0 source data for input into the script as well as using the SQL Server Management Studio to truncate and load the script output data into the database.
+# __NSI-Updater__
+A python tool to update the Tsunami National Structure Inventory General Building Stock (tsNsiGbs state database table) for Hazus with data from NSI. This tool requires manual editing of the NSI source data for input into the script as well as using the SQL Server Management Studio to truncate and load the script's output data into the database.
 
 ------
 
@@ -7,6 +7,7 @@ A python tool to update the Tsunami National Structure Inventory General Buildin
   - Python 3.7 or greater with pyodbc and Pandas
   - Hazus 4.2.3 (requires ArcMap 10.6.1) or greater
   - SQL Server Management Studio (SSMS) installed
+  - NSI data as csv files
 
 -----
 
@@ -96,7 +97,7 @@ NOTE: This table does not exist for all States so you may need to create it.
 ![hzSqFtFactors table](./images/hzSqftFactors_table.JPG)
 
 ### __Other__
-For these databases only: AK, CA, HI, OR, WA, PR, VI, AS, GU, MP
+This script processing is intended for these databases: AK, CA, HI, OR, WA, PR, VI, AS, GU, MP
 
 United States Army Core of Engineers (USACE) [National Structure Inventory](https://www.hec.usace.army.mil/confluence/nsidocs/nsi-documentation-49251650.html) (NSI) 2.0 data to populate the Hazus Tsunami database table (tsNsiGbs). 
 
@@ -108,13 +109,16 @@ United States Army Core of Engineers (USACE) [National Structure Inventory](http
 |||
 |NSI 1.0 | What Hazus is using now|
 |NSI "1.5" | replace proprietary attributes of corelogic with Hazus based assumptions|
-|NSI 2.0 | NiyamIT script to incoporate/create|
+|NSI 2.0 | NiyamIT script to incorporate/create|
 |||
 |Hazus General Building Stock| - |
 |CoreLogic Data | building level data &#124; proprietary attributes|
 |Zillow dataset | not used
 |Microsoft/Bing dataset | not used
 |HIFLD | not used but might be
+
+
+#### Enable Tsunami
 
 -----
 
